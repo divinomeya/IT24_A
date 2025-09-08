@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>To Do List</title>
 </head>
 <body>
     <h1> To do list</h1>
@@ -11,22 +11,61 @@
             id="taskInput"
             placeholder="Add a task"
 
-            <button onclick = "addeedTask()">Add</button>
+     <button onclick = "addeedTask()">Add</button>
+     <ul id="tasklist">Your task goes here</ul>
+
 <script>
 
     function addTask(){
-        getTaskText();
+            const tasktext = getTaskText();
+
+            if(tasktext){
+                addTaskItem(tasktext);
+            }else{
+                console.log("No Task Entered");
+            }
 
     }
 
     function getTaskText(){
         const input = document.getElementById("taskInput");
         const text = input.value.trim();
-        console.log("getTaskText called: " + input.value);
-        return{text, input};
         
+        console.log("getTaskText called: " + input.value);
+        return text;   
+
     }
 
+    function addTaskItem(tasktext){
+        const li = document.createElement("li");
+        li.textContent = tasktext;
+
+        document.getElementById("taskList").appendChild(li);
+        console.log("addtaskitem() called ->:", tasktext, Date());
+
+        const deletebtn = createDeleteButton(li);
+        li.appendChild(deletebtn);
+
+ }
+
+
+ function createDeleteButton(li){
+    const DeleteBtn = document.createElement("button");
+    DeleteBtn.textContent="x";
+    DeleteBtn.classname="delete=btn";
+    DeleteBtn.style.marginLeft = "8px";
+    DeleteBtn.onclick = () =>handleDeleteClick(li);
+
+    console.log("createDeleteButton() called ->" , li.textContent);
+    return deleteBtn;
+
+}
+
+function handleDeleteClick(li){
+    li.remove();
+    console.log("handleDeleteClick() called ->" , li.textContent.replace("x","").trim(),Date());
+}
 </script>   
+
 </body>
 </html>
